@@ -199,14 +199,16 @@ Local sloka data ─┘
 ### Sarvam AI (Active)
 
 ```javascript
-POST https://api.sarvam.ai/text-to-speech
+POST https://api.sarvam.ai/text-to-speech/stream
 Body: {
-  inputs: [text],
+  text: text,
   target_language_code: "te-IN",
-  speaker: "anushka",           // do not change
-  model: "bulbul:v2",
+  speaker: "simran",
+  model: "bulbul:v3",
   speech_sample_rate: 22050,    // valid: 8000 | 16000 | 22050 only
-  enable_preprocessing: false,  // true mangles Telugu Unicode
+  pace: 1,
+  output_audio_codec: "mp3",
+  enable_preprocessing: true,
 }
 ```
 

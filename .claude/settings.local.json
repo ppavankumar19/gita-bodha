@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(cd:*)",
+      "WebFetch(domain:api.vedicscriptures.in)",
+      "WebFetch(domain:bhagavad-gita3.p.rapidapi.com)",
+      "WebFetch(domain:bhagavadgitaapi.com)",
+      "WebFetch(domain:gita-api.vercel.app)",
+      "WebFetch(domain:bhagavadgita.io)",
+      "WebFetch(domain:bhagavadgita.com)",
+      "WebFetch(domain:rapidapi.com)",
+      "Bash(npm run:*)",
+      "WebSearch",
+      "WebFetch(domain:publicapi.dev)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.bhagavadgita.io)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(ls:*)",
+      "Bash(gh repo:*)",
+      "Bash(git init:*)",
+      "Bash(gh auth:*)",
+      "Bash(git remote:*)"
+    ]
+  }
+}
