@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -28,7 +28,7 @@ export default function App() {
               <div className="text-center py-20 font-telugu text-text-muted">
                 <p className="text-6xl mb-4">🪷</p>
                 <p className="text-xl">పేజీ దొరకలేదు</p>
-                <a href="/" className="text-primary underline mt-2 block">ముఖపుటానికి వెళ్ళండి</a>
+                <Link to="/" className="text-primary underline mt-2 block">ముఖపుటానికి వెళ్ళండి</Link>
               </div>
             } />
           </Routes>
