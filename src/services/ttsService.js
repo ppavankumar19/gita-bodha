@@ -80,6 +80,5 @@ function browserSpeak(text, { lang, rate, onStart, onEnd, onError }) {
   // Slight delay ensures cancel() is processed before speak()
   setTimeout(() => {
     window.speechSynthesis.speak(utterance);
-    if (onStart) onStart();
   }, 150);
 }
