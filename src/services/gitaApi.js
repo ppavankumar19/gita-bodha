@@ -16,26 +16,41 @@ async function get(path) {
 
 // Map raw API response to our internal shape, optionally merging local metadata
 function mapVerse(raw, metadata = {}) {
+  if (raw?.error) {
+    throw new Error(raw.message || raw.error);
+  }
+
   // Some verses are combined in the API (e.g. verse_no = "5,6") — use first number for ID
-  const verseNo = typeof raw.verse_no === 'string'
+  const verseNoRaw = typeof raw.verse_no === 'string'
     ? parseInt(raw.verse_no.split(',')[0], 10)
     : raw.verse_no;
+  const verseNo = Number(verseNoRaw);
+  const chapterNo = Number(raw.chapter_no);
+
+  if (!Number.isInteger(chapterNo) || !Number.isInteger(verseNo)) {
+    throw new Error('Unexpected verse data received from Telugu Gita API');
+  }
 
   // verse field can be a string or an array of lines — normalise to string
   const verseText = Array.isArray(raw.verse)
     ? raw.verse.join('\n')
     : (typeof raw.verse === 'string' ? raw.verse : '');
 
+  // purport may be a single string or an array of paragraphs
+  const purportText = Array.isArray(raw.purport)
+    ? raw.purport.join('\n\n')
+    : (typeof raw.purport === 'string' ? raw.purport : '');
+
   return {
-    id: `${raw.chapter_no}-${verseNo}`,
-    chapter: raw.chapter_no,
+    id: `${chapterNo}-${verseNo}`,
+    chapter: chapterNo,
     verse: verseNo,
     // chapter_name from API includes a "4. " prefix — strip it
     chapter_name_telugu: raw.chapter_name?.replace(/^\d+\.\s*/, '').trim() || '',
     // sloka text, Telugu translation, extended commentary
     sloka_sanskrit: verseText,
     bhavam_telugu: raw.translation || '',
-    purport_telugu: raw.purport || '',
+    purport_telugu: purportText,
     audio_link: raw.audio_link || '',
     // enrichment from local curated metadata
     chapter_name_english: metadata.chapter_name_english || '',
@@ -48,8 +63,10 @@ function mapVerse(raw, metadata = {}) {
 }
 
 // Fetch a single verse with optional local metadata merged in
-export const fetchVerse = (chapter, verse, metadata = {}) =>
-  get(`/tel/verse/${chapter}/${verse}`).then(raw => mapVerse(raw, metadata));
+export const fetchVerse = async (chapter, verse, metadata = {}) => {
+  const raw = await get(`/tel/verse/${chapter}/${verse}`);
+  return mapVerse(raw, metadata);
+};
 
 // Verse counts per chapter — used to build parallel fetch requests
 const CHAPTER_VERSE_COUNTS = {
