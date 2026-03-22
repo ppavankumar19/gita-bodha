@@ -4,6 +4,7 @@ import { useApp } from '../context/AppContext';
 import VoicePlayer from '../components/VoicePlayer';
 import ThemeTag from '../components/ThemeTag';
 import { useGitaVerse } from '../hooks/useGitaVerse';
+import { CHAPTERS } from '../data/chapters';
 
 export default function SlokaView() {
   const { id } = useParams();
@@ -32,9 +33,34 @@ export default function SlokaView() {
     );
   }
 
-  const [chapter, verse] = id.split('-').map(Number);
-  const prevId = verse > 1 ? `${chapter}-${verse - 1}` : null;
-  const nextId = `${chapter}-${verse + 1}`;
+  const [idChapter, idVerse] = id.split('-').map(Number);
+  const chapter = Number.isInteger(idChapter) ? idChapter : sloka.chapter;
+  const verse = Number.isInteger(idVerse) ? idVerse : sloka.verse;
+  const chapterIndex = CHAPTERS.findIndex(c => c.chapter_number === chapter);
+  const chapterMeta = chapterIndex >= 0 ? CHAPTERS[chapterIndex] : null;
+  const chapterVerseCount = chapterMeta?.verses_count || verse;
+
+  let prevId = null;
+  let nextId = null;
+
+  if (verse > 1) {
+    prevId = `${chapter}-${verse - 1}`;
+  } else if (chapterIndex > 0) {
+    const prevChapter = CHAPTERS[chapterIndex - 1];
+    prevId = `${prevChapter.chapter_number}-${prevChapter.verses_count}`;
+  }
+
+  if (verse < chapterVerseCount) {
+    nextId = `${chapter}-${verse + 1}`;
+  } else if (chapterIndex >= 0 && chapterIndex < CHAPTERS.length - 1) {
+    const nextChapter = CHAPTERS[chapterIndex + 1];
+    nextId = `${nextChapter.chapter_number}-1`;
+  }
+
+  const formatVerseLabel = (targetId) => {
+    const [c, v] = targetId.split('-').map(Number);
+    return `Adhyayam ${c} · Slokam ${v}`;
+  };
   const favorite = isFavorite(sloka.id);
 
   return (
@@ -204,23 +230,25 @@ export default function SlokaView() {
               Previous
             </p>
             <p className="font-ui text-sm font-semibold text-text-main">
-              Adhyayam {chapter} · Slokam {verse - 1}
+              {formatVerseLabel(prevId)}
             </p>
           </button>
         ) : <div />}
 
-        <button
-          onClick={() => navigate(`/sloka/${nextId}`)}
-          className="bg-white border border-orange-200 rounded-xl p-4 text-right hover:border-primary hover:shadow-sm transition-all group"
-        >
-          <p className="font-ui text-xs text-text-muted mb-1 flex items-center gap-1 justify-end">
-            Next
-            <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
-          </p>
-          <p className="font-ui text-sm font-semibold text-text-main">
-            Adhyayam {chapter} · Slokam {verse + 1}
-          </p>
-        </button>
+        {nextId ? (
+          <button
+            onClick={() => navigate(`/sloka/${nextId}`)}
+            className="bg-white border border-orange-200 rounded-xl p-4 text-right hover:border-primary hover:shadow-sm transition-all group"
+          >
+            <p className="font-ui text-xs text-text-muted mb-1 flex items-center gap-1 justify-end">
+              Next
+              <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
+            </p>
+            <p className="font-ui text-sm font-semibold text-text-main">
+              {formatVerseLabel(nextId)}
+            </p>
+          </button>
+        ) : <div />}
       </div>
     </div>
   );
