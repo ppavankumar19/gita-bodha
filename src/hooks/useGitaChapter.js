@@ -10,9 +10,18 @@ export function useGitaChapter(chapterNum) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!chapterNum) return;
+    if (!chapterNum) {
+      setVerses([]);
+      setChapterInfo(null);
+      setError('Invalid chapter');
+      setLoading(false);
+      return;
+    }
+
+    let isActive = true;
     setLoading(true);
     setError(null);
+    setVerses([]);
 
     // Set chapter info immediately from local data
     const info = CHAPTERS.find(c => c.chapter_number === Number(chapterNum));
@@ -20,6 +29,7 @@ export function useGitaChapter(chapterNum) {
 
     fetchChapterVerses(chapterNum)
       .then(fetched => {
+        if (!isActive) return;
         // Merge API verses with any local curated metadata
         const enriched = fetched.map(v => {
           const meta = getSlokaById(v.id);
@@ -35,8 +45,16 @@ export function useGitaChapter(chapterNum) {
         });
         setVerses(enriched);
       })
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
+      .catch(err => {
+        if (!isActive) return;
+        setError(err.message);
+      })
+      .finally(() => {
+        if (!isActive) return;
+        setLoading(false);
+      });
+
+    return () => { isActive = false; };
   }, [chapterNum]);
 
   return { verses, chapterInfo, loading, error };
