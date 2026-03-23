@@ -80,15 +80,29 @@ export async function fetchChapterVerses(chapterNum) {
   const count = CHAPTER_VERSE_COUNTS[Number(chapterNum)];
   if (!count) throw new Error(`Unknown chapter: ${chapterNum}`);
 
-  const BATCH = 10;
+  const BATCH_SIZE = 15; // Increased batch size for faster loading
   const results = [];
-  for (let i = 1; i <= count; i += BATCH) {
-    const batch = Array.from(
-      { length: Math.min(BATCH, count - i + 1) },
-      (_, j) => fetchVerse(chapterNum, i + j)
-    );
-    const batchResults = await Promise.all(batch);
-    results.push(...batchResults);
+  
+  for (let i = 1; i <= count; i += BATCH_SIZE) {
+    const batchPromises = [];
+    for (let j = 0; j < BATCH_SIZE && (i + j) <= count; j++) {
+      const verseNum = i + j;
+      batchPromises.push(
+        fetchVerse(chapterNum, verseNum)
+          .catch(err => {
+            console.warn(`Failed to fetch verse ${chapterNum}:${verseNum}`, err);
+            return null; // Don't fail the whole chapter if one verse fails
+          })
+      );
+    }
+    
+    const batchResults = await Promise.all(batchPromises);
+    results.push(...batchResults.filter(v => v !== null));
   }
+
+  if (results.length === 0) {
+    throw new Error(`Failed to load any verses for chapter ${chapterNum}. The API might be rate-limited.`);
+  }
+
   return results;
 }
