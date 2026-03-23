@@ -1,49 +1,40 @@
-import { useState, useCallback } from 'react';
-import { speak, stop, pause, resume } from '../services/ttsService';
+import { useCallback } from 'react';
+import { useApp } from '../context/AppContext';
 
+/**
+ * Enhanced useVoice hook that uses the global AppContext state.
+ * This ensures that only one sloka plays at a time and all UI 
+ * components stay in sync.
+ */
 export function useVoice() {
-  const [status, setStatus] = useState('idle');
-  const [rate, setRate] = useState(0.75);
+  const { 
+    playingId, voiceStatus, voiceRate, setVoiceRate,
+    playSloka, stopGlobalVoice, pauseGlobalVoice, resumeGlobalVoice
+  } = useApp();
 
-  const playText = useCallback(async (text, lang = 'te-IN') => {
-    if (!text) return;
-
-    if (status === 'playing') {
-      stop();
-      setStatus('idle');
-      return;
-    }
-
-    setStatus('loading');
-
-    try {
-      await speak(text, {
-        lang,
-        rate,
-        onStart: () => setStatus('playing'),
-        onEnd: () => setStatus('idle'),
-        onError: () => setStatus('error'),
-      });
-    } catch (err) {
-      console.error('playText error:', err);
-      setStatus('error');
-    }
-  }, [status, rate]);
+  const playText = useCallback(async (text, id = 'unknown') => {
+    await playSloka(id, text);
+  }, [playSloka]);
 
   const handlePause = useCallback(() => {
-    if (status === 'playing') {
-      pause();
-      setStatus('paused');
-    } else if (status === 'paused') {
-      resume();
-      setStatus('playing');
+    if (voiceStatus === 'playing') {
+      pauseGlobalVoice();
+    } else if (voiceStatus === 'paused') {
+      resumeGlobalVoice();
     }
-  }, [status]);
+  }, [voiceStatus, pauseGlobalVoice, resumeGlobalVoice]);
 
   const handleStop = useCallback(() => {
-    stop();
-    setStatus('idle');
-  }, []);
+    stopGlobalVoice();
+  }, [stopGlobalVoice]);
 
-  return { status, rate, setRate, playText, handlePause, handleStop };
+  return { 
+    status: voiceStatus, 
+    rate: voiceRate, 
+    setRate: setVoiceRate, 
+    playText, 
+    handlePause, 
+    handleStop,
+    playingId
+  };
 }
