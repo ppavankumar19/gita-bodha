@@ -13,13 +13,13 @@ A web application that brings the timeless wisdom of the **Bhagavad Gita** to ch
 |---|---|---|
 | 📖 **Sloka Library** | 23 curated slokas with Telugu bhavam | ✅ Live |
 | 🌐 **Full Gita via API** | Browse all 700 verses across 18 chapters | ✅ Live |
-| 🔍 **Smart Search** | Search by keyword, chapter, sloka ID, or virtue | ✅ Live |
-| 🔊 **Voice Playback** | Listen to slokas and bhavam via TTS | ✅ Live |
+| 🔍 **Smart Search** | Search by keyword, chapter, or suggested virtues | ✅ Improved |
+| 🔊 **Voice Sync** | Global play/pause across all components (only one plays at a time) | ✅ New |
 | 🎯 **Virtues** | Slokas tagged with values like Duty, Courage, Compassion | ✅ Live |
-| 🌞 **Daily Sloka** | One featured sloka shown on homepage each day | ✅ Live |
+| 🌞 **Daily Sloka** | Featured sloka on homepage with instant play/pause | ✅ Improved |
 | ❤️ **Favorites** | Bookmark slokas, stored in browser localStorage | ✅ Live |
 | 📚 **Chapter Browser** | Browse all 18 Adhayayas with verse counts | ✅ Live |
-| 📱 **Responsive Design** | Works on mobile, tablet, and desktop | ✅ Live |
+| 📱 **Responsive Design** | Premium UI with smooth animations and transitions | ✅ Improved |
 
 ---
 
