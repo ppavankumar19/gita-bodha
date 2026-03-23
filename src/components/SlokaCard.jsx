@@ -7,13 +7,22 @@ import { useVoice } from '../hooks/useVoice';
 export default function SlokaCard({ sloka, compact = false }) {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useApp();
-  const { status, playText } = useVoice();
+  const { status, playText, handlePause, playingId } = useVoice();
   const favorite = isFavorite(sloka.id);
-  const isPlaying = status === 'playing';
+  
+  const isThisActive = playingId === sloka.id;
+  const isPlaying = isThisActive && status === 'playing';
+  const isPaused = isThisActive && status === 'paused';
+  const isLoading = isThisActive && status === 'loading';
+  const isActive = isPlaying || isPaused;
 
   const handlePlay = async (e) => {
     e.stopPropagation();
-    await playText(sloka.sloka_sanskrit);
+    if (isThisActive) {
+      handlePause();
+    } else {
+      await playText(`${sloka.sloka_sanskrit} ... ${sloka.bhavam_telugu || sloka.bhavam_english || ''}`, sloka.id);
+    }
   };
 
   const slokaText = typeof sloka.sloka_sanskrit === 'string' ? sloka.sloka_sanskrit : '';
@@ -76,13 +85,28 @@ export default function SlokaCard({ sloka, compact = false }) {
         <div className="flex items-center gap-2 pt-3 border-t border-orange-50">
           <button
             onClick={handlePlay}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-primary text-white rounded-full text-xs font-ui font-semibold hover:bg-orange-600 transition-colors shadow-sm"
+            disabled={isLoading}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-ui font-semibold transition-all shadow-sm ${
+              isActive 
+                ? 'bg-secondary text-white scale-105 shadow-secondary/20' 
+                : 'bg-primary text-white hover:bg-orange-600'
+            }`}
           >
-            {isPlaying ? (
-              <><span className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin inline-block" /> Playing</>
+            {isLoading ? (
+              <span className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin inline-block" />
+            ) : isPlaying ? (
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                <rect x="6" y="4" width="4" height="16" rx="1" />
+                <rect x="14" y="4" width="4" height="16" rx="1" />
+              </svg>
+            ) : isPaused ? (
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
             ) : (
-              <>🔊 Listen</>
+              <span className="text-[14px]">🔊</span>
             )}
+            <span>{isPlaying ? 'Pause' : isPaused ? 'Resume' : 'Listen'}</span>
           </button>
 
           {sloka.difficulty && (

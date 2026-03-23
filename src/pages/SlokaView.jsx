@@ -213,6 +213,7 @@ export default function SlokaView() {
           🔊 Listen
         </p>
         <VoicePlayer
+          id={sloka.id}
           slokaText={sloka.sloka_sanskrit}
           bhavamText={sloka.bhavam_telugu || sloka.bhavam_english || ''}
         />

@@ -13,20 +13,29 @@ function WaveAnimation() {
   );
 }
 
-export default function VoicePlayer({ slokaText, bhavamText }) {
-  const { status, rate, setRate, playText, handlePause, handleStop } = useVoice();
+export default function VoicePlayer({ id, slokaText, bhavamText }) {
+  const { status, rate, setRate, playText, handlePause, handleStop, playingId } = useVoice();
   const [mode, setMode] = useState('sloka');
 
-  const handlePlay = async () => {
-    if (mode === 'sloka') await playText(slokaText);
-    else if (mode === 'bhavam') await playText(bhavamText);
-    else await playText(`${slokaText} ... ${bhavamText}`);
-  };
-
-  const isPlaying = status === 'playing';
-  const isPaused = status === 'paused';
-  const isLoading = status === 'loading';
+  const isThisActive = playingId === id;
+  const isPlaying = isThisActive && status === 'playing';
+  const isPaused = isThisActive && status === 'paused';
+  const isLoading = isThisActive && status === 'loading';
   const isActive = isPlaying || isPaused;
+
+  const handlePlay = async () => {
+    if (isThisActive) {
+      handlePause();
+      return;
+    }
+    
+    let textToSpeak = '';
+    if (mode === 'sloka') textToSpeak = slokaText;
+    else if (mode === 'bhavam') textToSpeak = bhavamText;
+    else textToSpeak = `${slokaText} ... ${bhavamText}`;
+    
+    await playText(textToSpeak, id);
+  };
 
   return (
     <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
