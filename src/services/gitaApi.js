@@ -1,7 +1,8 @@
 // Telugu Gita API — https://gita-api.vercel.app
-// In dev: requests go through Vite proxy at /api/gita (avoids CORS)
-// In prod: requests go directly (deploy behind a reverse proxy or use a CORS-enabled host)
-const BASE_URL = import.meta.env.DEV ? '/api/gita' : 'https://gita-api.vercel.app';
+// Always use the /api/gita proxy path. 
+// In dev: handled by Vite proxy in vite.config.js
+// In prod: handled by Render Redirects/Rewrites rules
+const BASE_URL = '/api/gita';
 
 const cache = new Map();
 
