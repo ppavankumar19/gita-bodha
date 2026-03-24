@@ -17,7 +17,7 @@ export default function Home() {
         <div className="inline-flex items-center gap-2 bg-orange-50 border border-orange-200 text-primary text-xs font-ui font-medium px-4 py-1.5 rounded-full mb-5 uppercase tracking-widest">
           🪷 Bhagavad Gita for Children
         </div>
-        <h1 className="font-telugu font-bold text-primary text-5xl sm:text-6xl mb-2 leading-tight">
+        <h1 className="font-telugu font-bold text-primary text-4xl sm:text-6xl mb-2 leading-tight">
           గీత బాల వనం
         </h1>
         <p className="font-display italic text-secondary text-xl mb-1">

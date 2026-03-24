@@ -64,10 +64,10 @@ export default function SlokaView() {
   const favorite = isFavorite(sloka.id);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 fade-up">
+    <div className="max-w-3xl mx-auto px-4 py-4 sm:py-8 fade-up">
 
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-xs text-text-muted mb-6 flex-wrap font-ui">
+      <nav className="flex items-center gap-1.5 text-[10px] sm:text-xs text-text-muted mb-4 sm:mb-6 flex-wrap font-ui">
         <Link to="/" className="hover:text-primary transition-colors">Home</Link>
         <span className="text-orange-300">/</span>
         <Link to={`/chapter/${chapter}`} className="hover:text-primary transition-colors">
@@ -78,24 +78,24 @@ export default function SlokaView() {
       </nav>
 
       {/* Chapter + verse header */}
-      <div className="bg-white rounded-2xl border border-orange-200 shadow-sm overflow-hidden mb-5">
+      <div className="bg-white rounded-2xl border border-orange-200 shadow-sm overflow-hidden mb-4 sm:mb-5">
         <div className="h-1 bg-gradient-to-r from-primary via-accent to-secondary" />
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <span className="font-ui text-xs bg-accent/70 text-text-main font-bold px-3 py-1 rounded-full">
+              <span className="font-ui text-[10px] sm:text-xs bg-accent/70 text-text-main font-bold px-3 py-1 rounded-full">
                 Adhyayam {chapter} · Slokam {verse}
               </span>
               {sloka.chapter_name_english && (
-                <p className="font-ui text-secondary text-sm font-semibold mt-2">{sloka.chapter_name_english}</p>
+                <p className="font-ui text-secondary text-xs sm:text-sm font-semibold mt-2">{sloka.chapter_name_english}</p>
               )}
               {sloka.chapter_name_telugu && (
-                <p className="font-telugu text-text-muted text-xs mt-0.5">{sloka.chapter_name_telugu}</p>
+                <p className="font-telugu text-text-muted text-[10px] sm:text-xs mt-0.5">{sloka.chapter_name_telugu}</p>
               )}
             </div>
             <button
               onClick={() => toggleFavorite(sloka.id)}
-              className="text-2xl hover:scale-125 transition-transform duration-150 ml-3"
+              className="text-xl sm:text-2xl hover:scale-125 transition-transform duration-150 ml-3"
             >
               {favorite ? '❤️' : '🤍'}
             </button>
@@ -103,10 +103,10 @@ export default function SlokaView() {
 
           {/* Sloka in Telugu script */}
           <div className="mb-5">
-            <p className="font-telugu text-xs font-semibold text-text-muted mb-2">
+            <p className="font-telugu text-[10px] sm:text-xs font-semibold text-text-muted mb-2 uppercase tracking-wider">
               శ్లోకం
             </p>
-            <div className="bg-orange-50 rounded-xl px-5 py-4 border-l-4 border-primary">
+            <div className="bg-orange-50 rounded-xl px-4 sm:px-5 py-3 sm:py-4 border-l-4 border-primary">
               <p className="sloka-text text-text-main whitespace-pre-line">
                 {sloka.sloka_sanskrit}
               </p>
@@ -130,24 +130,24 @@ export default function SlokaView() {
 
       {/* Telugu Bhavam */}
       {sloka.bhavam_telugu ? (
-        <div className="bg-white rounded-2xl border border-orange-200 shadow-sm p-6 mb-5">
-          <h2 className="font-telugu font-bold text-secondary text-base mb-3 flex items-center gap-2">
+        <div className="bg-white rounded-2xl border border-orange-200 shadow-sm p-4 sm:p-6 mb-4 sm:mb-5">
+          <h2 className="font-telugu font-bold text-secondary text-sm sm:text-base mb-3 flex items-center gap-2">
             📖 భావం
           </h2>
           <p className="bhavam-text text-text-main leading-relaxed">{sloka.bhavam_telugu}</p>
         </div>
       ) : sloka.bhavam_english ? (
-        <div className="bg-white rounded-2xl border border-orange-200 shadow-sm p-6 mb-5">
+        <div className="bg-white rounded-2xl border border-orange-200 shadow-sm p-4 sm:p-6 mb-4 sm:mb-5">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-ui font-bold text-secondary text-base">📖 Meaning (English)</h2>
+            <h2 className="font-ui font-bold text-secondary text-sm sm:text-base">📖 Meaning (English)</h2>
             {sloka.bhavam_author && (
-              <span className="font-ui text-xs bg-blue-50 text-blue-600 px-2.5 py-1 rounded-full font-medium">
+              <span className="font-ui text-[10px] sm:text-xs bg-blue-50 text-blue-600 px-2.5 py-1 rounded-full font-medium">
                 {sloka.bhavam_author}
               </span>
             )}
           </div>
-          <p className="font-ui text-text-main leading-relaxed text-sm">{sloka.bhavam_english}</p>
-          <p className="font-telugu text-xs text-text-muted mt-4 italic border-t border-orange-100 pt-3">
+          <p className="font-ui text-text-main leading-relaxed text-xs sm:text-sm">{sloka.bhavam_english}</p>
+          <p className="font-telugu text-[10px] sm:text-xs text-text-muted mt-4 italic border-t border-orange-100 pt-3">
             * తెలుగు భావం త్వరలో జోడించబడుతుంది.
           </p>
         </div>
@@ -155,12 +155,12 @@ export default function SlokaView() {
 
       {/* Purport — extended Telugu commentary from API */}
       {sloka.purport_telugu && (
-        <div className="bg-white rounded-2xl border border-orange-200 shadow-sm p-6 mb-5">
+        <div className="bg-white rounded-2xl border border-orange-200 shadow-sm p-4 sm:p-6 mb-4 sm:mb-5">
           <details className="group">
-            <summary className="font-telugu font-bold text-secondary text-base mb-1 flex items-center gap-2 cursor-pointer list-none">
+            <summary className="font-telugu font-bold text-secondary text-sm sm:text-base mb-1 flex items-center gap-2 cursor-pointer list-none">
               <span className="group-open:rotate-90 transition-transform inline-block text-primary">›</span>
               📜 తాత్పర్యం
-              <span className="font-ui text-xs text-text-muted font-normal">(Purport)</span>
+              <span className="font-ui text-[10px] sm:text-xs text-text-muted font-normal">(Purport)</span>
             </summary>
             <p className="bhavam-text text-text-main leading-relaxed mt-3 border-l-4 border-orange-100 pl-4">
               {sloka.purport_telugu}
@@ -171,8 +171,8 @@ export default function SlokaView() {
 
       {/* For Children */}
       {sloka.child_summary_telugu && (
-        <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl border border-orange-200 p-6 mb-5">
-          <h2 className="font-telugu font-bold text-primary text-base mb-3 flex items-center gap-2">
+        <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl border border-orange-200 p-4 sm:p-6 mb-4 sm:mb-5">
+          <h2 className="font-telugu font-bold text-primary text-sm sm:text-base mb-3 flex items-center gap-2">
             🌟 పిల్లలకు
           </h2>
           <p className="summary-text text-text-main">{sloka.child_summary_telugu}</p>
@@ -181,16 +181,16 @@ export default function SlokaView() {
 
       {/* Moral themes */}
       {sloka.moral_themes?.filter(t => !/[\u0C00-\u0C7F]/.test(t)).length > 0 && (
-        <div className="bg-white rounded-2xl border border-orange-200 shadow-sm p-5 mb-5">
-          <p className="font-ui text-xs font-semibold text-text-muted uppercase tracking-widest mb-3">
+        <div className="bg-white rounded-2xl border border-orange-200 shadow-sm p-4 sm:p-5 mb-4 sm:mb-5">
+          <p className="font-ui text-[10px] sm:text-xs font-semibold text-text-muted uppercase tracking-widest mb-3">
             Virtues
           </p>
-          <div className="flex flex-wrap gap-2 mb-3">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3">
             {sloka.moral_themes.map(t => <ThemeTag key={t} theme={t} />)}
           </div>
           <div className="flex items-center gap-2 pt-2 border-t border-orange-50">
             {sloka.difficulty && (
-              <span className={`font-ui text-xs px-2.5 py-1 rounded-full font-medium ${
+              <span className={`font-ui text-[10px] sm:text-xs px-2.5 py-1 rounded-full font-medium ${
                 sloka.difficulty === 'beginner'
                   ? 'bg-green-100 text-secondary'
                   : 'bg-yellow-100 text-yellow-700'
@@ -199,7 +199,7 @@ export default function SlokaView() {
               </span>
             )}
             {sloka.age_group && (
-              <span className="font-ui text-xs bg-gray-100 text-text-muted px-2.5 py-1 rounded-full">
+              <span className="font-ui text-[10px] sm:text-xs bg-gray-100 text-text-muted px-2.5 py-1 rounded-full">
                 Age {sloka.age_group}
               </span>
             )}
@@ -220,17 +220,17 @@ export default function SlokaView() {
       </div>
 
       {/* Prev / Next */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3 mb-8">
         {prevId ? (
           <button
             onClick={() => navigate(`/sloka/${prevId}`)}
-            className="bg-white border border-orange-200 rounded-xl p-4 text-left hover:border-primary hover:shadow-sm transition-all group"
+            className="bg-white border border-orange-200 rounded-xl p-3 sm:p-4 text-left hover:border-primary hover:shadow-sm transition-all group"
           >
-            <p className="font-ui text-xs text-text-muted mb-1 flex items-center gap-1">
+            <p className="font-ui text-[10px] sm:text-xs text-text-muted mb-1 flex items-center gap-1">
               <span className="group-hover:-translate-x-1 transition-transform inline-block">←</span>
               Previous
             </p>
-            <p className="font-ui text-sm font-semibold text-text-main">
+            <p className="font-ui text-xs sm:text-sm font-semibold text-text-main line-clamp-1">
               {formatVerseLabel(prevId)}
             </p>
           </button>
@@ -239,13 +239,13 @@ export default function SlokaView() {
         {nextId ? (
           <button
             onClick={() => navigate(`/sloka/${nextId}`)}
-            className="bg-white border border-orange-200 rounded-xl p-4 text-right hover:border-primary hover:shadow-sm transition-all group"
+            className="bg-white border border-orange-200 rounded-xl p-3 sm:p-4 text-right hover:border-primary hover:shadow-sm transition-all group"
           >
-            <p className="font-ui text-xs text-text-muted mb-1 flex items-center gap-1 justify-end">
+            <p className="font-ui text-[10px] sm:text-xs text-text-muted mb-1 flex items-center gap-1 justify-end">
               Next
               <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
             </p>
-            <p className="font-ui text-sm font-semibold text-text-main">
+            <p className="font-ui text-xs sm:text-sm font-semibold text-text-main line-clamp-1">
               {formatVerseLabel(nextId)}
             </p>
           </button>

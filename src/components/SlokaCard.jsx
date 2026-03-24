@@ -36,10 +36,10 @@ export default function SlokaCard({ sloka, compact = false }) {
       {/* Card top accent bar */}
       <div className="h-1 w-full bg-gradient-to-r from-primary via-accent to-secondary rounded-t-2xl" />
 
-      <div className="p-5 flex flex-col flex-1">
+      <div className="p-4 sm:p-5 flex flex-col flex-1">
         {/* Badge row */}
         <div className="flex items-center justify-between mb-3">
-          <span className="font-ui text-xs bg-accent/70 text-text-main font-semibold px-2.5 py-1 rounded-full">
+          <span className="font-ui text-[10px] sm:text-xs bg-accent/70 text-text-main font-semibold px-2.5 py-1 rounded-full">
             Adh. {sloka.chapter} · Sl. {sloka.verse}
           </span>
           <button
@@ -53,25 +53,25 @@ export default function SlokaCard({ sloka, compact = false }) {
 
         {/* Chapter name */}
         {sloka.chapter_name_english && (
-          <p className="font-ui text-xs text-secondary font-medium mb-2 uppercase tracking-wide">
+          <p className="font-ui text-[10px] sm:text-xs text-secondary font-medium mb-2 uppercase tracking-wide">
             {sloka.chapter_name_english}
           </p>
         )}
 
         {/* Sloka Sanskrit text */}
         {!compact && firstTwoLines && (
-          <p className="sloka-text text-text-main whitespace-pre-line mb-3 line-clamp-2">
+          <p className="sloka-text text-text-main whitespace-pre-line mb-3 line-clamp-2 !text-base sm:!text-[1.35rem]">
             {firstTwoLines}
           </p>
         )}
 
         {/* Child summary (Telugu) or English fallback */}
         {sloka.child_summary_telugu ? (
-          <p className="font-telugu text-base font-semibold text-text-main mb-3 leading-relaxed flex-1">
+          <p className="font-telugu text-sm sm:text-base font-semibold text-text-main mb-3 leading-relaxed flex-1">
             {sloka.child_summary_telugu}
           </p>
         ) : sloka.bhavam_english ? (
-          <p className="font-ui text-sm text-text-muted mb-3 line-clamp-2 flex-1">
+          <p className="font-ui text-xs sm:text-sm text-text-muted mb-3 line-clamp-2 flex-1">
             {sloka.bhavam_english}
           </p>
         ) : <div className="flex-1" />}

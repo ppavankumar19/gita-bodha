@@ -29,27 +29,27 @@
 }
 
 @layer components {
-  /* Sloka Sanskrit text — Telugu script, large */
+  /* Sloka Sanskrit text — Telugu script, responsive size */
   .sloka-text {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1.35rem;
-    line-height: 2.2rem;
+    font-size: clamp(1.15rem, 4vw, 1.35rem);
+    line-height: clamp(1.8rem, 6vw, 2.2rem);
     letter-spacing: 0.01em;
   }
 
-  /* Telugu bhavam — readable body size */
+  /* Telugu bhavam — responsive body size */
   .bhavam-text {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1.05rem;
-    line-height: 2rem;
+    font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+    line-height: clamp(1.7rem, 5.5vw, 2rem);
   }
 
-  /* Child summary — bold, friendly */
+  /* Child summary — bold, friendly, responsive */
   .summary-text {
     font-family: 'Noto Sans Telugu', sans-serif;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 3.8vw, 1.1rem);
     font-weight: 700;
-    line-height: 1.8rem;
+    line-height: clamp(1.6rem, 5.2vw, 1.8rem);
   }
 
   /* Section headings */
