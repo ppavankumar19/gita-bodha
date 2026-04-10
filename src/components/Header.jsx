@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const navLinks = [
   { to: '/slokas', label: 'Slokas' },
@@ -9,6 +9,12 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Close mobile menu on any route change (handles back/forward navigation too)
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <header className="bg-white/95 backdrop-blur-md border-b border-orange-100 sticky top-0 z-50 transition-all duration-300">
