@@ -188,21 +188,18 @@ App (router root)
 |---|---|---|
 | `query` | string | Current search query |
 | `setQuery` | function | Update query |
-| `chapterFilter` | number\|null | Active chapter filter |
-| `setChapterFilter` | function | Update chapter filter |
-| `themeFilter` | string\|null | Active theme filter |
-| `setThemeFilter` | function | Update theme filter |
+| `filters` | object | `{ chapter: number|null, theme: string|null }` |
+| `setFilters` | function | Update filters object |
 | `resultCount` | number | Number of results (shown as badge) |
-| `suggestions` | array | Search suggestion items |
-| `onSuggestionClick` | function | Handle suggestion selection |
 
 **Features:**
 - Fuzzy search (Fuse.js via `useSearch`)
-- Suggestion dropdown (appears after 2+ characters)
-- Chapter filter dropdown (1–18)
-- Theme/virtue filter dropdown
-- Active filter count badge
-- Clear all button
+- Auto-suggested virtue chips (filtered by current query)
+- Adhyayam (chapter) filter dropdown
+- Virtue (theme) filter dropdown
+- Result count indicator
+- Clear all / reset button
+- Horizontally scrollable suggestions on mobile
 
 ---
 
@@ -214,8 +211,9 @@ App (router root)
 | Prop | Type | Description |
 |---|---|---|
 | `theme` | string | Virtue name (e.g. `"Courage"`, `"Duty"`) |
+| `clickable` | boolean | If true (default), renders as Link to `/theme/:name`; otherwise renders as `<span>` |
 
-**Logic:** Uses `isTeluguText()` pattern to detect Telugu script and applies `font-telugu` class. Navigates to the theme page on click.
+**Logic:** Detects Telugu script via `/[\u0C00-\u0C7F]/` regex and returns `null` for Telugu-only tags (only English tags shown in UI). If clickable, renders as a `<Link>` navigating to the theme page.
 
 ---
 
@@ -235,4 +233,4 @@ App (router root)
 | `useGitaChapter(n)` | SlokaList | `{ verses, chapterInfo, loading, error }` |
 | `useCuratedSlokas()` | SlokaList | `{ slokas }` |
 | `useFeaturedSlokas()` | Home | `{ slokas, loading }` |
-| `useSearch(slokas)` | SlokaList | `{ results, query, setQuery, chapterFilter, themeFilter, suggestions }` |
+| `useSearch(slokas)` | SlokaList | `{ results, query, setQuery, filters, setFilters }` |
