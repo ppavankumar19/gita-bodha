@@ -149,15 +149,14 @@ Activated when: `VITE_ELEVENLABS_API_KEY` is set in `.env`.
 **Request:**
 ```json
 {
-  "inputs": ["కర్మణ్యేవాధికారస్తే..."],
+  "text": "కర్మణ్యేవాధికారస్తే...",
   "target_language_code": "te-IN",
   "speaker": "simran",
-  "pitch": 0,
-  "pace": 0.85,
-  "loudness": 1.5,
-  "speech_sample_rate": 8000,
-  "enable_preprocessing": true,
-  "model": "bulbul:v3"
+  "model": "bulbul:v3",
+  "pace": 1,
+  "speech_sample_rate": 22050,
+  "output_audio_codec": "mp3",
+  "enable_preprocessing": false
 }
 ```
 
