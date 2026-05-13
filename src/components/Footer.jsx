@@ -52,11 +52,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-orange-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="font-ui text-xs text-text-muted">
+        <div className="border-t border-orange-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+          <p className="font-ui text-[10px] sm:text-xs text-text-muted">
             © 2026 Gita Bala Vanam · Bhagavad Gita for Children · Telugu Edition
           </p>
-          <p className="font-ui text-xs text-text-muted">
+          <p className="font-ui text-[10px] sm:text-xs text-text-muted">
             Built with 🙏 for Andhra Pradesh & Telangana
           </p>
         </div>

@@ -28,7 +28,7 @@ export default function SearchBar({ query, setQuery, filters, setFilters, result
           type="text"
           value={query}
           onChange={handleQuery}
-          placeholder="Search by virtue, chapter, or verse... (e.g. Courage, 2.47)"
+          placeholder="Search slokas... (e.g. Courage, 2.47)"
           className="w-full pl-11 pr-10 py-3 rounded-xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-primary/50 text-sm transition-all"
         />
         {query && (
@@ -42,13 +42,13 @@ export default function SearchBar({ query, setQuery, filters, setFilters, result
       </div>
 
       {/* Suggested Virtues "Auto-update" search */}
-      <div className="flex flex-wrap gap-2 mb-4 items-center">
-        <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest mr-1">Suggestions:</span>
+      <div className="flex gap-2 mb-4 items-center overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible scrollbar-none">
+        <span className="hidden sm:inline text-[10px] font-bold text-text-muted uppercase tracking-widest mr-1 flex-shrink-0">Suggestions:</span>
         {suggestions.map(t => (
           <button
             key={t}
             onClick={() => { setQuery(t); setFilters(f => ({ ...f, theme: null })); }}
-            className={`text-xs px-3 py-1 rounded-full border transition-all ${
+            className={`text-xs px-3 py-1.5 rounded-full border transition-all flex-shrink-0 ${
               query === t 
                 ? 'bg-primary text-white border-primary shadow-sm scale-105' 
                 : 'bg-white text-text-muted border-gray-100 hover:border-primary hover:text-primary'
@@ -59,7 +59,7 @@ export default function SearchBar({ query, setQuery, filters, setFilters, result
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-3 items-center pt-4 border-t border-gray-50">
+      <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 items-center pt-4 border-t border-gray-50">
         <div className="flex items-center gap-2">
           <label className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Adhyayam:</label>
           <select

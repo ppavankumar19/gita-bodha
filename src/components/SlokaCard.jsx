@@ -82,7 +82,7 @@ export default function SlokaCard({ sloka, compact = false }) {
         </div>
 
         {/* Actions row */}
-        <div className="flex items-center gap-2 pt-3 border-t border-orange-50">
+        <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-orange-50">
           <button
             onClick={handlePlay}
             disabled={isLoading}

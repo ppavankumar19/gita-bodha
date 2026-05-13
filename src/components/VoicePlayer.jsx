@@ -61,7 +61,7 @@ export default function VoicePlayer({ id, slokaText, bhavamText }) {
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <button
           onClick={isActive ? handlePause : handlePlay}
           disabled={isLoading}
@@ -109,7 +109,7 @@ export default function VoicePlayer({ id, slokaText, bhavamText }) {
             <button
               key={r}
               onClick={() => setRate(r)}
-              className={`font-ui text-xs px-2 py-1 rounded-full transition-colors font-semibold ${
+              className={`font-ui text-xs px-2.5 py-1.5 rounded-full transition-colors font-semibold ${
                 rate === r
                   ? 'bg-primary text-white shadow-sm'
                   : 'bg-white text-text-muted border border-orange-200 hover:border-primary hover:text-primary'
