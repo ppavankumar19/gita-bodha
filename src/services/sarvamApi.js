@@ -19,7 +19,7 @@ export async function sarvamSpeak(text, { rate = 1.0, onStart, onEnd, onError })
       pace: 1,
       speech_sample_rate: 22050,
       output_audio_codec: 'mp3',
-      enable_preprocessing: true,
+      enable_preprocessing: false,
     }),
   });
 
