@@ -25,10 +25,10 @@ export default function App() {
             <Route path="/theme/:themeName" element={<ThemePage />} />
             <Route path="/themes" element={<ThemesPage />} />
             <Route path="*" element={
-              <div className="text-center py-20 font-telugu text-text-muted">
+              <div className="text-center py-20 text-text-muted">
                 <p className="text-6xl mb-4">🪷</p>
-                <p className="text-xl">పేజీ దొరకలేదు</p>
-                <Link to="/" className="text-primary underline mt-2 block">ముఖపుటానికి వెళ్ళండి</Link>
+                <p className="font-ui text-xl">Page not found</p>
+                <Link to="/" className="font-ui text-primary underline mt-2 block text-sm">← Go back to Home</Link>
               </div>
             } />
           </Routes>

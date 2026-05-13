@@ -17,7 +17,7 @@ export default function Home() {
         <div className="inline-flex items-center gap-2 bg-orange-50 border border-orange-200 text-primary text-xs font-ui font-medium px-4 py-1.5 rounded-full mb-5 uppercase tracking-widest">
           🪷 Bhagavad Gita for Children
         </div>
-        <h1 className="font-telugu font-bold text-primary text-4xl sm:text-6xl mb-2 leading-tight">
+        <h1 className="font-telugu font-bold text-primary text-3xl sm:text-5xl lg:text-6xl mb-2 leading-tight">
           గీత బాల వనం
         </h1>
         <p className="font-display italic text-secondary text-xl mb-1">
@@ -91,7 +91,7 @@ export default function Home() {
         <div className="flex items-center justify-between mb-5">
           <h2 className="section-heading text-xl text-text-main">🌺 Virtues</h2>
           <Link to="/themes" className="font-ui text-primary text-sm font-medium hover:underline">
-            All themes →
+            All Virtues →
           </Link>
         </div>
         <div className="flex flex-wrap gap-2">
